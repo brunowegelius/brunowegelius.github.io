@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="sv">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CV — Bruno Wegelius</title>
+  <meta name="theme-color" content="#ffffff" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root { --bg:#fff; --fg:#0f0f10; --muted:#6b7280; --border:#e5e7eb; --maxw:860px; --small:13px; --base:15px; --lh:1.55; }
+    * { box-sizing: border-box }
+    html, body { height: 100% }
+    body {
+      margin: 0; background: var(--bg); color: var(--fg);
+      font-family: "Roboto Mono", ui-monospace, Menlo, Consolas, monospace;
+      font-size: var(--base); line-height: var(--lh); -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+    }
+    a { color:#111; text-decoration:none } a:hover{ text-decoration:underline }
+
+    .wrap { display:grid; grid-template-columns:220px 1fr; min-height:100% }
+    nav {
+      border-right:1px solid var(--border);
+      padding:28px 18px 28px 22px;
+      position:sticky; top:0; align-self:start; height:100dvh;
+      display:flex; flex-direction:column; gap:28px;
+    }
+    .brand { font-weight:600; letter-spacing:.5px }
+    .tabs { display:flex; flex-direction:column; gap:10px }
+    .tab { font-size:var(--small); text-transform:lowercase; letter-spacing:.4px; opacity:.7 }
+    .tab[aria-current="page"] { opacity:1 }
+
+    main { padding:28px 28px 40px 28px }
+    .container { max-width: var(--maxw) }
+    header h1 { font-weight:500; font-size:22px; margin:0 0 6px 0 }
+    header .muted { color: var(--muted) }
+
+    .grid {
+  display: grid;
+  grid-template-columns: 1.5fr .7fr;
+  column-gap: 28px;  /* lite mer luft mellan kolumnerna */
+  row-gap: 18px;     /* separerar sektioner vertikalt */
+  margin-top: 18px;
+}
+    .section h2 { font-weight:500; font-size:16px; margin:18px 0 8px 0 }
+    .item { margin:0 0 10px 0 }
+	.item div:not(.meta) {
+  margin-left: 14px;
+  margin-top: 5px;
+  font-size: 13px;       /* mindre text än standard */
+  line-height: 1.35;     /* tätare radavstånd */
+}
+    .meta { font-size: var(--small); color: var(--muted) }
+
+    @media (min-width: 900px) {
+      .grid { grid-template-columns: 1.6fr .6fr; column-gap: 24px }
+      .col { border-left: 1px solid var(--border); padding-left: 16px }
+      .col:first-child { border-left: 0; padding-left: 0 }
+    }
+
+    @media print {
+      nav { display:none }
+      .wrap { grid-template-columns: 1fr }
+      main { padding: 0 }
+      .container { max-width: 100% }
+      a { text-decoration: none }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <nav aria-label="Primär navigering">
+      <div class="brand">Bruno Wegelius</div>
+      <div class="tabs" role="tablist">
+        <a class="tab" href="index.html#portfolio">projekt</a>
+        <a class="tab" href="index.html#about">om mig</a>
+        <a class="tab" href="index.html#links">länkar</a>
+        <a class="tab" aria-current="page" href="cv.html">cv</a>
+      </div>
+    </nav>
+
+    <main>
+      <div class="container">
+        <header>
+          <h1>CV</h1>
+          <div class="muted">Sundsvall · wegeliusbruno@gmail.com · +46 72 221 69 15</div>
+        </header>
+
+        <div class="grid">
+          <section class="col section">
+            <h2>Profil</h2>
+            <p class="item">Medicinstudent. Grundare av Valborg På Campus och numera rådgivande konsult i projektets fortsatta utveckling.</p>
+
+            <h2>Erfarenhet</h2>
+            <div class="item">
+              <strong>Kirurgkliniken, Sundsvalls sjukhus — Underläkare</strong>
+              <div class="meta">Sundsvall · juni 2025 – december 2025</div>
+              <div>Rondarbete och assistans vid operation.</div>
+            </div>
+
+            <div class="item">
+              <strong>Kliniskt träningscentrum (KTC), Sundsvalls sjukhus — Amanuens</strong>
+              <div class="meta">Sundsvall · januari 2025 – juni 2026</div>
+              <div>Byggde upp och drev amanuensverksamheten för läkarstudenter; planering och ledning av workshops och simulering; ansvar för utrustning och drift.</div>
+            </div>
+
+            <div class="item">
+              <strong>Akutmottagningen, Västerviks sjukhus — Undersköterska</strong>
+              <div class="meta">Västervik · juni 2023 – augusti 2023</div>
+              <div>Akut- och traumaomhändertagande, PVK-sättning, provtagning, EKG, bladderscan, sårvård och assistans vid suturering och mindre ingrepp.</div>
+            </div>
+
+            <div class="item">
+              <strong>Annagården, Enheten för korttids- och växelvård — Vårdbiträde (vik.)</strong>
+              <div class="meta">Västervik · juni 2019 – augusti 2019</div>
+              <div>Omvårdnad vid stora vårdbehov, läkemedelshantering, såromläggning, anhörigkontakt och palliativ vård.</div>
+            </div>
+
+            <div class="item">
+              <strong>Ortopedavdelningen, Västerviks sjukhus — Sjukvårdsbiträde</strong>
+              <div class="meta">Västervik · juli 2018 – augusti 2018</div>
+              <div>Prover, patienttransporter, desinfektion och logistikarbete på avdelning.</div>
+            </div>
+
+            <div class="item">
+              <strong>Mentor, Linköpings universitet</strong>
+              <div class="meta">Linköping · augusti 2020 – juni 2021</div>
+              <div>Stöd till studenter med funktionsnedsättning: planering, studieteknik och coaching.</div>
+            </div>
+
+            <h2>Projekt</h2>
+            <div class="item">
+              <strong>Valborg På Campus — Grundare, projektledare (2023–2025), konsult</strong>
+              <div class="meta">Umeå · augusti 2022 – nuvarande</div>
+              <div>Skalning till &gt;5 000 besökare; helhetsansvar för bokningar, budget, partnerskap, säkerhet och marknadsföring. Idag rådgivande roll för strategi och struktur. 2023: 2 800 besökare. 2024: 3 800. 2025: mål 5 000.</div>
+              <div><a href="vpc.html">Öppna case →</a> · <a href="https://valborgpacampus.se" target="_blank" rel="noopener">valborgpacampus.se</a></div>
+            </div>
+          </section>
+
+          <aside class="col section">
+            <h2>Utbildning</h2>
+            <div class="item">
+              <strong>Umeå universitet — Läkarprogrammet</strong>
+              <div class="meta">Umeå · januari 2021 – juni 2026</div>
+            </div>
+            <div class="item">
+              <strong>Linköpings universitet</strong>
+              <div class="meta">Naturvetenskapligt basår, 60 hp (2019–2020) · Medicinsk teknik, 7,5 hp (2020)</div>
+            </div>
+            <div class="item">
+              <strong>Stockholms universitet</strong>
+              <div class="meta">Precisionsmedicin och AI, 7,5 hp (2020)</div>
+            </div>
+            <div class="item">
+              <strong>Högskolan i Skövde</strong>
+              <div class="meta">Humanfysiologi, 7,5 hp (2020)</div>
+            </div>
+            <div class="item">
+              <strong>Upper Hutt College — Nya Zeeland</strong>
+              <div class="meta">2017–2018 · Physics L2/3, Chemistry L2, English L2/3, Arts L2/3</div>
+            </div>
+
+            <h2>Kontakt</h2>
+            <div class="item">E-post: <a href="mailto:wegeliusbruno@gmail.com">wegeliusbruno@gmail.com</a><br>Telefon: <a href="tel:+46722216915">+46 72 221 69 15</a><br>Plats: Sundsvall</div>
+          </aside>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>
