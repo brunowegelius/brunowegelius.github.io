@@ -235,26 +235,18 @@
       document.title = `Bruno Wegelius — ${id}`;
     }
 
-    // Intercept clicks so the browser doesn't perform its own anchor scroll.
     tabs.forEach(t => {
       t.addEventListener('click', (e) => {
         const href = t.getAttribute('href') || '';
         if (!href.startsWith('#')) return;
-
-        // Let new-tab behavior work normally.
         if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button === 1) return;
-
         e.preventDefault();
-        history.pushState(null, '', href);   // keep the URL hash for deep-linking
-        activate(href);                      // swap sections
-        window.scrollTo(0, 0);               // ensure no jump
+        history.pushState(null, '', href);
+        activate(href);
       });
     });
 
-    // Handle back/forward navigation between hashes without jumps.
     window.addEventListener('popstate', () => activate(location.hash));
-
-    // Initial render.
     activate(location.hash);
   })();
 </script>
