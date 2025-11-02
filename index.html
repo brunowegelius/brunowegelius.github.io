@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="sv">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bruno Wegelius</title>
+  <meta name="theme-color" content="#ffffff" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #ffffff;
+      --fg: #0f0f10;
+      --muted: #6b7280;
+      --border: #e5e7eb;
+      --maxw: 860px;
+      --small: 13px;
+      --base: 15px;
+      --lh: 1.55;
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--fg);
+      font-family: "Roboto Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size: var(--base);
+      line-height: var(--lh);
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+    a { color: #111; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .wrap { display: grid; grid-template-columns: 220px 1fr; min-height: 100%; }
+
+    /* Vänsterställd sidomeny */
+    nav {
+      border-right: 1px solid var(--border);
+      padding: 28px 18px 28px 22px;
+      position: sticky;
+      top: 0;
+      align-self: start;
+      height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+    .brand { font-weight: 600; letter-spacing: 0.5px; }
+    .tabs { display: flex; flex-direction: column; gap: 10px; }
+    .tab { font-size: var(--small); text-transform: lowercase; letter-spacing: 0.4px; opacity: 0.7; transition: opacity 120ms ease; }
+    .tab[aria-current="page"] { opacity: 1; }
+
+    main { 
+  padding: 50px 50px; 
+  align-self: start;   /* förhindrar att main hamnar mitt på sidan */
+  display: block;      /* gör att innehållet beter sig som vanligt flöde */
+}
+
+    h1 { font-weight: 600; margin: 0 0 12px 0; font-size: 18px; }
+    .section { display: none; animation: fade 160ms ease; }
+    .section.active { display: block; }
+
+    /* Valfritt stöd om du lägger in projektkort */
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 16px;
+      margin-top: 20px;
+    }
+    .card {
+      border: 1px solid var(--border);
+      padding: 10px;
+      border-radius: 0px;
+      transition: transform 120ms ease, box-shadow 120ms ease;
+    }
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
+    .card h3 { font-size: 14px; margin: 0px; }
+    .card p  { font-size: 13px; margin-bottom: 6px; color: var(--muted); }
+    .card a  { font-size: 12px; }
+
+    @keyframes fade { from { opacity: 0 } to { opacity: 1 } }
+	  
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <nav aria-label="Primär navigering">
+      <div class="brand">Bruno Wegelius</div>
+      <div class="tabs" role="tablist">
+  <a class="tab" id="tab-portfolio" href="#portfolio" role="tab">projekt</a>
+  <a class="tab" id="tab-about" href="#about" role="tab">om mig</a>
+  <a class="tab" id="tab-links" href="#links" role="tab">länkar</a>
+  <a class="tab" href="cv.html">cv</a>
+</div>
+    </nav>
+
+    <main>
+      <div class="container">
+        <section id="portfolio" class="section active" role="tabpanel" aria-labelledby="tab-portfolio">
+          <h1>Utvalda projekt</h1>
+          <!-- Lägg in dina projekt här. Exempel:
+          <div class="projects">
+            <article class="card">
+              <h3>Projektnamn</h3>
+              <p>Kort beskrivning.</p>
+              <a href="https://exempel.se" target="_blank" rel="noopener">Öppna →</a>
+            </article>
+          </div>
+          -->
+          <div class="projects">
+            <article class="card">
+              <h3>Valborg På Campus</h3>
+              <p>Från idé till en av Umeås största studentfestivaler.</p>
+              <a href="vpc.html">Öppna projekt →</a>
+            </article>
+          </div>  
+        </section>
+
+        <section id="about" class="section" role="tabpanel" aria-labelledby="tab-about">
+          <h1>Om mig</h1>
+          <!-- Din text här -->
+        </section>
+
+        <section id="links" class="section" role="tabpanel" aria-labelledby="tab-links">
+          <h1>Länkar</h1>
+          <!-- Lägg in länkar här -->
+		<a href="https://instagram.com/brunowegelius" target="_blank">instagram</a>
+		<br>
+		<a href="https://www.facebook.com/bruno.wegelius/" target="_blank">facebook</a>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    (function () {
+      const sections = document.querySelectorAll('.section');
+      const tabs = document.querySelectorAll('.tab');
+
+      function activate(hash) {
+        const id = (hash || '#portfolio').replace('#', '');
+        sections.forEach(s => s.classList.toggle('active', s.id === id));
+        tabs.forEach(t => {
+          const isActive = t.getAttribute('href') === '#' + id;
+          t.setAttribute('aria-current', isActive ? 'page' : 'false');
+          t.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        });
+        // Behåll sidtitel, men byt ut hash-delen mot svensk text i titeln
+        const titles = { portfolio: 'projekt', about: 'om mig', links: 'länkar' };
+        document.title = `Bruno Wegelius — ${titles[id] || id}`;
+      }
+
+      // Hindra default-ankarscroll för att undvika "jump"
+      tabs.forEach(t => {
+        t.addEventListener('click', (e) => {
+          const href = t.getAttribute('href') || '';
+          if (!href.startsWith('#')) return;
+          if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button === 1) return;
+          e.preventDefault();
+          history.pushState(null, '', href);
+          activate(href);
+        });
+      });
+
+      window.addEventListener('popstate', () => activate(location.hash));
+      activate(location.hash);
+    })();
+  </script>
+</body>
+</html>
