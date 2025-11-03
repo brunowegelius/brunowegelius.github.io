@@ -246,73 +246,77 @@
   </script>
 
 <script>
-const video = document.getElementById('aboutVideo');
-const overlay = document.getElementById('videoClickOverlay');
-const toggle = document.getElementById('soundToggle');
-const stateLabel = document.getElementById('playState');
+const sections = document.querySelectorAll('.section');
+const tabs = document.querySelectorAll('.tab');
 
-const updateState = (msg) => {
-  if (!stateLabel) return;
-  if (msg) {
-    stateLabel.textContent = msg;
-  } else {
-    stateLabel.textContent = video.paused ? 'spelar inte' : 'spelar';
-  }
-};
+const aboutVideo = document.getElementById('aboutVideo');
+let aboutSrcSet = false;
+const VIDEO_URL = "https://dn721804.ca.archive.org/0/items/earth-vs-the-flying-saucers-color/Earth%20vs%20the%20Flying%20Saucers%20color.mp4";
 
-if (video) {
-  const startAt = 5; // sekunder
-  const tryPlay = () => video.play().catch(() => {});
+function setAboutSrcOnce() {
+  if (aboutSrcSet || !aboutVideo) return;
+  const s = document.createElement('source');
+  s.src = VIDEO_URL;
+  s.type = "video/mp4";
+  aboutVideo.appendChild(s);
+  aboutVideo.load();
+  aboutSrcSet = true;
+}
 
-  const startPlayback = () => {
-    try {
-      const seek = () => {
-        video.currentTime = startAt;
-        tryPlay();
-      };
-      if (video.readyState >= 1) seek();
-      else video.addEventListener('loadedmetadata', seek, { once: true });
-    } catch (_) {}
+function playAboutFrom(t=5) {
+  if (!aboutVideo) return;
+  const go = () => {
+    try { aboutVideo.currentTime = t; } catch(_) {}
+    aboutVideo.play().catch(()=>{});
   };
-
-  // Visa "laddar" medan metadata inte finns
-  updateState('laddar');
-
-  video.muted = false;
-  video.playsInline = true;
-  startPlayback();
-
-  // Event-lyssnare för laddningsstatus
-  video.addEventListener('waiting', () => updateState('laddar'));
-  video.addEventListener('canplay', () => updateState());
-  video.addEventListener('loadeddata', () => updateState());
-  video.addEventListener('playing', () => updateState());
-  video.addEventListener('play', () => updateState());
-  video.addEventListener('pause', () => updateState());
-
-  // Autoplay-fallback om browser kräver en gest
-  const resume = () => { tryPlay(); document.removeEventListener('pointerdown', resume); };
-  document.addEventListener('pointerdown', resume, { once: true });
+  if (aboutVideo.readyState >= 1) go();
+  else aboutVideo.addEventListener('loadedmetadata', go, { once:true });
 }
 
-// Overlay: toggla play/pause
-if (overlay && video) {
-  overlay.addEventListener('click', () => {
-    if (video.paused) video.play().catch(()=>{});
-    else video.pause();
+function pauseAbout() {
+  if (aboutVideo && !aboutVideo.paused) aboutVideo.pause();
+}
+
+function activate(hash) {
+  const id = (hash || '#portfolio').slice(1);
+  sections.forEach(s => s.classList.toggle('active', s.id === id));
+  tabs.forEach(t => {
+    const on = t.getAttribute('href') === '#' + id;
+    t.setAttribute('aria-current', on ? 'page' : 'false');
+    t.setAttribute('aria-selected', on ? 'true' : 'false');
   });
+  if (id === 'about') {
+    setAboutSrcOnce();
+    aboutVideo.muted = false;            // krävs för autoplay
+    aboutVideo.playsInline = true;      // iOS
+    document.getElementById('playState')?.textContent = 'laddar';
+    playAboutFrom(30);
+  } else {
+    pauseAbout();
+  }
 }
 
-// Ljud-knappen
-if (video && toggle) {
-  const updateLabel = () => toggle.textContent = video.muted ? 'sätt på ljud' : 'stäng av ljud';
-  updateLabel();
-  toggle.addEventListener('click', () => {
-    video.muted = !video.muted;
-    if (!video.muted) video.volume = 0.7;
-    updateLabel();
+tabs.forEach(t => {
+  t.addEventListener('click', e => {
+    const href = t.getAttribute('href') || '';
+    if (!href.startsWith('#')) return;
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button===1) return;
+    e.preventDefault();
+    history.pushState(null, '', href);
+    activate(href);
+    window.scrollTo(0,0);
   });
-}
+});
+
+window.addEventListener('popstate', () => activate(location.hash));
+activate(location.hash);
+
+// statusindikator
+aboutVideo?.addEventListener('waiting', () => (document.getElementById('playState').textContent = 'laddar'));
+aboutVideo?.addEventListener('playing', () => (document.getElementById('playState').textContent = 'spelar'));
+aboutVideo?.addEventListener('pause',   () => (document.getElementById('playState').textContent = 'spelar inte'));
+
+// klick-overlayn du redan har kan stå kvar; den påverkar inte laddningen.
 </script>
 
 </body>
